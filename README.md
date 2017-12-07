@@ -1,2 +1,2 @@
-# DailyScore
-It's a website that encourage myself to finish daily schedule by earning score.
+# VimConfig
+my own vim config directory
