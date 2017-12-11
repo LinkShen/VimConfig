@@ -40,6 +40,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
+Plugin 'terryma/vim-multiple-cursors'
 call vundle#end()
 
 filetype plugin indent on
