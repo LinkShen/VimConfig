@@ -7,7 +7,7 @@ syntax on
 set backspace=indent,eol,start
 
 set encoding=utf-8
-set fileencoding=utf-8
+set fileencodings=utf-8,GB2312
 set termencoding=utf-8
 
 set incsearch
@@ -27,6 +27,7 @@ set softtabstop=4
 
 " keymap
 nn <leader><cr> o<esc>
+nn <leader>fa :grep! -r <cword> .<cr><cr>:copen<cr>
 
 " commands
 com! DiffLastWrite :w !diff % -
@@ -51,3 +52,6 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_key_invoke_completion = '<c-f>'
 nn <f12> :YcmCompleter GoTo<cr>
+
+" ctrlp
+let g:ctrlp_working_path_mode = 'a'
