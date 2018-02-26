@@ -19,6 +19,7 @@ set number
 set wildmenu
 set showcmd
 set ruler
+set autoindent
 
 set expandtab
 set tabstop=4
@@ -31,6 +32,11 @@ nn <leader>fa :grep! -r <cword> .<cr><cr>:copen<cr>
 
 " commands
 com! DiffLastWrite :w !diff % -
+
+" protobuf
+augroup filetype
+  au! BufRead,BufNewFile *.proto setfiletype proto
+augroup end
 
 " Vundle
 filetype off
