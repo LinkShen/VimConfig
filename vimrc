@@ -19,6 +19,7 @@ set number
 set wildmenu
 set showcmd
 set ruler
+set laststatus=2
 set autoindent
 
 set expandtab
@@ -48,13 +49,14 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'google/vim-searchindex'
 call vundle#end()
 
 filetype plugin indent on
 
 " YouCompleteMe
 let g:ycm_python_binary_path = '/usr/bin/python'
-let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_key_invoke_completion = '<c-f>'
 nn <f12> :YcmCompleter GoTo<cr>
