@@ -50,6 +50,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'google/vim-searchindex'
+Plugin 'scrooloose/nerdcommenter'
 call vundle#end()
 
 filetype plugin indent on
@@ -63,3 +64,6 @@ nn <f12> :YcmCompleter GoTo<cr>
 
 " ctrlp
 let g:ctrlp_working_path_mode = 'a'
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
