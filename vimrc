@@ -64,6 +64,7 @@ nn <f12> :YcmCompleter GoTo<cr>
 
 " ctrlp
 let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_custom_ignore = '\v\.(o|so|a)$'
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
