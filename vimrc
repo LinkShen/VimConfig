@@ -32,6 +32,7 @@ set softtabstop=4
 nn <leader><cr> o<esc>
 nn <leader>fa :exe 'FindAll '.expand('<cword>').' .'<cr>
 nn <leader>ff :CtrlPLine %<cr>
+nn <leader>m :CtrlPMRUFiles<cr>
 
 " function
 function! ToggleLineNum()
