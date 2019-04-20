@@ -92,7 +92,7 @@ augroup end
 filetype off
 let &runtimepath .= ', ' . s:vimpath . '/bundle/Vundle.vim'
 
-call vundle#begin(s:vimpath . 'bundle')
+call vundle#begin(s:vimpath . '/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
