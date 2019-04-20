@@ -1,3 +1,14 @@
+
+if has('win32') || has('win64')
+    let s:vimpath = '~/vimfiles'
+else
+    let s:vimpath = '~/.vim'
+endif
+
+if has('gui_running')
+    set guioptions=!aerM
+endif
+
 " appearance and color
 colorscheme desert
 
@@ -6,9 +17,7 @@ set nocompatible
 syntax on
 set backspace=indent,eol,start
 
-set encoding=utf-8
-set fileencodings=utf-8,GB2312
-set termencoding=utf-8
+set fileencodings=utf-8,GB2312,GBK,CP936
 
 set incsearch
 set ignorecase
@@ -19,7 +28,7 @@ set number
 set relativenumber
 set wildmenu
 set showcmd
-set ruler
+set statusline=%f\ %m%=%y\ %{&fileencoding}\ %{&fileformat}\ %P
 set laststatus=2
 set autoindent
 
@@ -81,9 +90,9 @@ augroup end
 
 " Vundle
 filetype off
-set runtimepath+=~/.vim/bundle/Vundle.vim
+let &runtimepath .= ', ' . s:vimpath . '/bundle/Vundle.vim'
 
-call vundle#begin()
+call vundle#begin(s:vimpath . 'bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
