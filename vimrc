@@ -6,7 +6,7 @@ else
 endif
 
 if has('gui_running')
-    set guioptions=!aerM
+    set guioptions=!erM
 endif
 
 " appearance and color
@@ -95,7 +95,7 @@ let &runtimepath .= ', ' . s:vimpath . '/bundle/Vundle.vim'
 call vundle#begin(s:vimpath . '/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'google/vim-searchindex'
