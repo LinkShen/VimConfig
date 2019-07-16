@@ -39,11 +39,11 @@ set softtabstop=4
 
 " keymap
 nn <leader><cr> o<esc>
-nn <leader>fa :exe 'FindAll '.expand('<cword>').' .'<cr>
-nn <leader>ff :CtrlPLine %<cr>
 nn <leader>m :CtrlPMRUFiles<cr>
 
-" function
+" misc
+com! LineNum :call ToggleLineNum()
+
 function! ToggleLineNum()
     if &number
         set nonumber
@@ -57,6 +57,12 @@ function! ToggleLineNum()
         set relativenumber
     endif
 endfunction
+
+" find
+nn <leader>fa :exe 'FindAll '.expand('<cword>').' .'<cr>
+nn <leader>ff :CtrlPLine %<cr>
+
+com! -nargs=* FindAll :call FindAll(<f-args>)
 
 function! FindAll(...)
     let l:pat = expand('<cword>')
@@ -78,10 +84,76 @@ function! FindAll(...)
     execute "silent grep! ".l:include." -i ".l:pat." -r ".l:dir | redraw! | copen
 endfunction
 
+" fold
+nn <leader>zm :call FoldLevelDown()<cr>
+nn <leader>zM :call SetFoldLevel(0)<cr>
+nn <leader>zr :call FoldLevelUp()<cr>
+nn <leader>zR :call SetFoldLevel(99)<cr>
+
+let s:startfoldlevel = 0
+let s:maxfoldlevel = 0
+let s:curfoldlevel = 0
+function! SetFoldLevel(level)
+    let s:startfoldlevel = a:level
+    call DoFold()
+endfunction
+
+function! FoldLevelUp()
+    let s:startfoldlevel += 1
+    call DoFold()
+endfunction
+
+function! FoldLevelDown()
+    let s:startfoldlevel -= 1
+    call DoFold()
+endfunction
+
+function! DoFold()
+    if s:startfoldlevel < 0
+        let s:startfoldlevel = 0
+    endif
+    set foldexpr=CheckFoldLevel(v:lnum)
+    set foldmethod=expr
+    if s:startfoldlevel >= s:maxfoldlevel
+        let s:startfoldlevel = s:maxfoldlevel
+    else
+        execute "%foldclose".expand("<cr>")
+    endif
+endfunction
+
+function! CheckFoldLevel(lnum)
+    if a:lnum == 1
+        let s:maxfoldlevel = 0
+        let s:curfoldlevel = 0
+    endif
+
+    let l:ret = s:curfoldlevel
+    let l:line = getline(a:lnum)
+    if l:line =~ '{'
+        let s:curfoldlevel += 1
+        if s:curfoldlevel > s:maxfoldlevel
+            let s:maxfoldlevel = s:curfoldlevel
+        endif
+        let l:ret = s:curfoldlevel - s:startfoldlevel
+    elseif l:line =~ '}'
+        let l:ret = s:curfoldlevel - s:startfoldlevel
+        if s:curfoldlevel > 0
+            let s:curfoldlevel -= 1
+        endif
+    else
+        let l:ret = s:curfoldlevel - s:startfoldlevel
+    endif
+
+    if l:ret < 0
+        let l:ret = 0
+    elseif l:ret > 1
+        return 1
+    endif
+    return l:ret
+endfunction
+
 " commands
 com! DiffLastWrite :w !diff % -
-com! LineNum :call ToggleLineNum()
-com! -nargs=* FindAll :call FindAll(<f-args>)
 
 " protobuf
 augroup filetype
@@ -95,7 +167,7 @@ let &runtimepath .= ', ' . s:vimpath . '/bundle/Vundle.vim'
 call vundle#begin(s:vimpath . '/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'google/vim-searchindex'
