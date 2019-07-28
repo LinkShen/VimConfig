@@ -167,21 +167,17 @@ let &runtimepath .= ', ' . s:vimpath . '/bundle/Vundle.vim'
 call vundle#begin(s:vimpath . '/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'google/vim-searchindex'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 call vundle#end()
 
 filetype plugin indent on
-
-" YouCompleteMe
-let g:ycm_python_binary_path = '/usr/bin/python'
-" let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_key_invoke_completion = '<c-f>'
-nn <f12> :YcmCompleter GoTo<cr>
 
 " ctrlp
 let g:ctrlp_working_path_mode = 'a'
@@ -190,3 +186,16 @@ let g:ctrlp_extensions = ['line']
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
+
+" lsp
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp']})
+endif
+
+inoremap <expr><tab> pumvisible()?"\<c-n>":"\<tab>"
+noremap <leader>fr :LspReference<cr>
+noremap <leader>fd :LspDefinition<cr>
+

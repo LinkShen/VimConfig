@@ -2,6 +2,4 @@
 
 " search definition in header
 nn <leader>fa :exe 'silent grep! -r --include=*.{cpp,h,cc,hpp} '.expand('<cword>').' .' \| copen<cr><c-l>
-nn <leader>ft :YcmCompleter GetType<cr>
-nn <F11> :call youcompleteme#GotoDefinitionCpp()<cr><c-l>zz
 
