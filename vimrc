@@ -175,6 +175,7 @@ Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
 Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plugin 'ycm-core/YouCompleteMe'
 call vundle#end()
 
 filetype plugin indent on
@@ -187,6 +188,9 @@ let g:ctrlp_extensions = ['line']
 " nerdcommenter
 let g:NERDSpaceDelims = 1
 
+" YouCompleteMe
+let g:ycm_min_num_of_chars_for_completion = 99
+
 " lsp
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
@@ -194,6 +198,10 @@ if executable('clangd')
         \ 'cmd': {server_info->['clangd', '-background-index']},
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp']})
 endif
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/var/log/vim-lsp.log')
+highlight link lspReference CursorLine
 
 inoremap <expr><tab> pumvisible()?"\<c-n>":"\<tab>"
 noremap <leader>fr :LspReference<cr>
