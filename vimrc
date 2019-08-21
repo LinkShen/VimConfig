@@ -40,6 +40,7 @@ set softtabstop=4
 " keymap
 nn <leader><cr> o<esc>
 nn <leader>m :CtrlPMRUFiles<cr>
+nn <expr><leader>q getqflist({'winid':1}).winid == 0 ? ':copen<cr>' : ':cclose<cr>'
 
 " misc
 com! LineNum :call ToggleLineNum()
@@ -173,8 +174,6 @@ Plugin 'google/vim-searchindex'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 Plugin 'ycm-core/YouCompleteMe'
 call vundle#end()
 
@@ -188,8 +187,9 @@ let g:ctrlp_extensions = ['line']
 " nerdcommenter
 let g:NERDSpaceDelims = 1
 
-" YouCompleteMe
-let g:ycm_min_num_of_chars_for_completion = 99
+" youcomleteme
+let g:ycm_use_clangd = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " lsp
 if executable('clangd')
@@ -203,7 +203,6 @@ endif
 " let g:lsp_log_file = expand('~/var/log/vim-lsp.log')
 highlight link lspReference CursorLine
 
-inoremap <expr><tab> pumvisible()?"\<c-n>":"\<tab>"
 noremap <leader>fr :LspReference<cr>
 noremap <leader>fd :LspDefinition<cr>
 
