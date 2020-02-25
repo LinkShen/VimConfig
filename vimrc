@@ -172,6 +172,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'google/vim-searchindex'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'yssl/QFEnter'
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
 Plugin 'ycm-core/YouCompleteMe'
@@ -187,9 +188,14 @@ let g:ctrlp_extensions = ['line']
 " nerdcommenter
 let g:NERDSpaceDelims = 1
 
+" qfenter
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.vopen = ['<C-v>']
+
 " youcomleteme
 let g:ycm_use_clangd = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_show_diagnostics_ui = 1
 
 " lsp
 if executable('clangd')
@@ -201,6 +207,7 @@ endif
 
 " let g:lsp_log_verbose = 1
 " let g:lsp_log_file = expand('~/var/log/vim-lsp.log')
+let g:lsp_diagnostics_enabled = 0
 highlight link lspReference CursorLine
 
 noremap <leader>fr :LspReference<cr>
